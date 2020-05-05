@@ -13,11 +13,9 @@ require('./config/util')
 const koa_session = require('koa-session')
 const session_signed_key = ["some secret hurr"]
 const seesion_config = {
-    key: 'koa:sess',
-    hostname: '127.0.0.1',
-    domin: '127.0.0.1:8080',
+    key: 'UserName',
     path: '/',
-    maxAge: 400000,
+    maxAge: 60*60*24*7,
     autoCommit: true,
     overwrite:true,
     httpOnly:false,
@@ -45,12 +43,7 @@ onerror(app)
 app.use(body())
 app.use(json())
 app.use(logger())
-
-var corsOptions = {
-    origin: 'http://localhost:8080',
-    credentials: true
-}
-app.use(cors(corsOptions))
+app.use(cors())
 
 
 // logger

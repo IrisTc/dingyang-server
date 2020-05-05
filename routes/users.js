@@ -3,7 +3,7 @@ const Users = require('../models/users')
 
 router.prefix('/user')
 
-router.post('/login', async (ctx, next) => {
+router.get('/login', async (ctx, next) => {
     ctx.set('Access-Control-Allow-Credentials', true);
     data = {
         "name": ctx.query.name,
@@ -11,7 +11,10 @@ router.post('/login', async (ctx, next) => {
     }
     let doc = await Users.find(data)
     if(doc.length !== 0){
-        ctx.session.logged = true
+        ctx.session.user = {
+            _id: doc._id,
+            uername: doc.name
+        }
     }
     ctx.body = {
         status: '200',
