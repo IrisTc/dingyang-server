@@ -1,7 +1,7 @@
 {
     "apps": [{
-        "name": "AutoDep",
-        "script": "bin/www",
+        "name": "server-koa",
+        "script": "./bin/www",
         "env": {
             "COMMON_VARIABLE": "true"
         },

@@ -3,7 +3,7 @@ const Users = require('../models/users')
 
 router.prefix('/user')
 
-router.get('/login', async (ctx, next) => {
+router.post('/login', async (ctx, next) => {
     ctx.set('Access-Control-Allow-Credentials', true);
     data = {
         "name": ctx.query.name,
