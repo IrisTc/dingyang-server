@@ -1,7 +1,7 @@
 {
     "apps": [{
         "name": "AutoDep",
-        "script": "server.js",
+        "script": "bin/www",
         "env": {
             "COMMON_VARIABLE": "true"
         },
