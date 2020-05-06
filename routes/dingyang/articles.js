@@ -36,7 +36,7 @@ router.post('/add', async (ctx, next)=>{
     Counts.create({
         "id": data.id,
         "type": "article",
-        "category": ctx.request.type
+        "category": data.type
     }).then(()=>{
         shell.cd('/www/wwwroot/dy.tcualhp.cn/dingyang-nuxt')
         if (shell.exec('npm run generate').code !== 0) {//执行npm run generate 命令
