@@ -1,6 +1,8 @@
 const router = require('koa-router')()
 const Articles = require('../../models/articles')
 const Counts = require('../../models/counts')
+const shell = require('shelljs')
+
 
 router.prefix('/dingyang/article')
 
@@ -35,6 +37,12 @@ router.post('/add', async (ctx, next)=>{
         "id": data.id,
         "type": "article",
         "category": ctx.request.type
+    }).then(()=>{
+        shell.cd('/www/wwwroot/dy.tcualhp.cn/dingyang-nuxt')
+        if (shell.exec('npm run generate').code !== 0) {//执行npm run generate 命令
+            shell.echo('generate commit failed');
+            shell.exit(1);
+        }
     })
     ctx.body = {
         status: '200',
