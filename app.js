@@ -15,7 +15,7 @@ const session_signed_key = ["some secret hurr"]
 const seesion_config = {
     key: 'UserName',
     path: '/',
-    maxAge: 60*60*24*7,
+    maxAge: 60*60*24*7*1000,
     autoCommit: true,
     overwrite:true,
     httpOnly:false,

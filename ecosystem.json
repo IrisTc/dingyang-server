@@ -18,7 +18,7 @@
             "repo": "git@github.com:IrisTc/dy-server.git",
             "path": "/www/wwwroot/admin.dy.tcualhp.cn/server-koa",
             "ssh_options": "StrictHostKeyChecking=no",
-            // "post-deploy": "npm install",
+            "post-deploy": "npm install",
             "pre-deploy-local": "echo 'Deploy Done!'",
             "env": {
                 "NODE_ENV": "production"

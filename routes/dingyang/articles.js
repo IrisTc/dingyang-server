@@ -2,7 +2,7 @@ const router = require('koa-router')()
 const Articles = require('../../models/articles')
 const Counts = require('../../models/counts')
 
-router.prefix('/article')
+router.prefix('/dingyang/article')
 
 
 router.get('/', async (ctx, next) => {
