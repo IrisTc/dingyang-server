@@ -28,13 +28,10 @@ const session = koa_session(seesion_config, app)
 app.keys = session_signed_key;
 app.use(session)
 
+const uploader = require('./routes/uploader')
 const users = require('./routes/users')
-const articles = require('./routes/dingyang/articles')
-const counts = require('./routes/dingyang/counts')
-const videos = require('./routes/dingyang/videos')
-const books = require('./routes/dingyang/books')
-const hyArticles = require('./routes/huayin/article')
-const hyOthers = require('./routes/huayin/other')
+const dyRouter = require('./routes/dingyang/index')
+const hyRouter = require('./routes/huayin/index')
 
 // error handler
 onerror(app)
@@ -43,7 +40,9 @@ onerror(app)
 app.use(body())
 app.use(json())
 app.use(logger())
-app.use(cors())
+app.use(cors({
+  origin: 'http://localhost:8080'
+}))
 
 
 // logger
@@ -55,13 +54,10 @@ app.use(async (ctx, next) => {
 })
 
 // routes
+app.use(uploader.routes(), uploader.allowedMethods())
 app.use(users.routes(), users.allowedMethods())
-app.use(articles.routes(), articles.allowedMethods())
-app.use(counts.routes(), counts.allowedMethods())
-app.use(videos.routes(), videos.allowedMethods())
-app.use(books.routes(), books.allowedMethods())
-app.use(hyArticles.routes(), hyArticles.allowedMethods())
-app.use(hyOthers.routes(), hyOthers.allowedMethods())
+app.use(dyRouter())
+app.use(hyRouter())
 
 // error-handling
 app.on('error', (err, ctx) => {

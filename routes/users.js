@@ -16,9 +16,13 @@ router.post('/login', async (ctx, next) => {
                 uername: user.name
             }
             ctx.body = {
-                status: '200',
-                msg: 'login successfully',
-                result: user
+                status: 200,
+                msg: 'login successfully'
+            }
+        }else{
+            ctx.body = {
+                status: -1,
+                msg: 'login failed'
             }
         }
     }
