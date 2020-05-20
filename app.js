@@ -40,9 +40,7 @@ onerror(app)
 app.use(body())
 app.use(json())
 app.use(logger())
-app.use(cors({
-  origin: 'http://localhost:8080'
-}))
+app.use(cors())
 
 
 // logger

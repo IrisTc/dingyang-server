@@ -35,12 +35,11 @@ router.post('/add', async (ctx, next)=>{
         //     shell.echo('generate commit failed');
         //     shell.exit(1);
         // }
-        ctx.body = {
-            status: '200',
-            msg: 'add successfully'
-        }
     })
-    
+    ctx.body = {
+        status: '200',
+        msg: 'add successfully'
+    }
 })
 
 module.exports = router
