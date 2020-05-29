@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 const HyArticles = require('../../models/hyarticles')
 
-router.prefix('/huayin/article')
+router.prefix('/api/huayin/article')
 
 router.get('/', async (ctx, next) => {
     let count = parseInt(ctx.query.count)

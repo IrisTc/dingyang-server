@@ -5,6 +5,8 @@ const onerror = require('koa-onerror')
 const logger = require('koa-logger')
 const body = require('koa-body')
 const cors = require('koa2-cors')
+const static = require('koa-static')
+app.use(static(__dirname+'/public'))
 
 const mongoConf = require('./config/mongo')
 mongoConf.connect()

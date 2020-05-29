@@ -1,6 +1,6 @@
 const router = require('koa-router')()
 const Books = require('../../models/books')
-router.prefix('/dingyang/book')
+router.prefix('/api/dingyang/book')
 
 router.get('/', async(ctx, next)=>{
     let doc = await Books.find().sort({'id':-1})

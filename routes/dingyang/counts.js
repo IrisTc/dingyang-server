@@ -1,6 +1,6 @@
 const router = require('koa-router')()
 const Counts = require('../../models/counts')
-router.prefix('/dingyang/count')
+router.prefix('/api/dingyang/count')
 
 router.get('/', async(ctx, next)=>{
     let doc = await Counts.find().sort({'id':-1})

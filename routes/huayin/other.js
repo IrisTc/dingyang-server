@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 const HyOthers = require('../../models/hyothers')
 
-router.prefix('/huayin/other')
+router.prefix('/api/huayin/other')
 
 router.get('/', async (ctx, next) => {
     let doc = await HyOthers.find(ctx.query).sort([['_id',-1]]).limit(1)

@@ -2,7 +2,7 @@ const router = require('koa-router')()
 const Users = require('../models/users')
 const bcrypt = require('bcryptjs')
 
-router.prefix('/user')
+router.prefix('/api/user')
 
 router.post('/login', async (ctx, next) => {
     let data = ctx.request.body

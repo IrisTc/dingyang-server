@@ -7,7 +7,7 @@ const nuxt = require('../../config/nuxt')
 // const shell = require('shelljs')
 
 
-router.prefix('/dingyang/article')
+router.prefix('/api/dingyang/article')
 
 
 router.get('/', async (ctx, next) => {
@@ -32,23 +32,24 @@ router.get('/', async (ctx, next) => {
 })
 
 router.post('/add', async (ctx, next) => {
-    let data = ctx.request.body
+    var data = ctx.request.body
     let doc = await Articles.find({ type: data.type }).sort()
-    let count = doc.length
-
+    data.id = doc.length + 1
     data.date = new Date().Format("yyyy-MM-dd")
-    data.id = count + 1
-    Articles.create(data)
-
     let params = {
         "id": data.id,
         "type": "article",
         "category": data.type
     }
 
+    //写入count数据，为了Nuxt项目的generate
     fs.readFile(path.join(nuxt.path, '/count.json'), function (err, data) {
         if (err) {
             console.log(err)
+            ctx.body = {
+                status: 100,
+                msg: err
+            }
         }
         var jsonData = data.toString()
         jsonData = JSON.parse(jsonData)
@@ -57,11 +58,16 @@ router.post('/add', async (ctx, next) => {
         fs.writeFile(path.join(nuxt.path, '/count.json'), str, function (err) {
             if (err) {
                 console.log(err)
+                ctx.body = {
+                    status: 100,
+                    msg: err
+                }
             }
-            console.log('add json successfully')
         })
     })
-
+    
+    Articles.create(data)
+    console.log('add json successfully')
     // shell.cd(nuxt.path)
     // if (shell.exec('npm run generate').code !== 0) {//执行npm run generate 命令
     //     shell.echo('generate commit failed');

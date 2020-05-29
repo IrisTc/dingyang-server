@@ -4,7 +4,7 @@ const Counts = require('../../models/counts')
 // const shell = require('shelljs')
 
 
-router.prefix('/dingyang/video')
+router.prefix('/api/dingyang/video')
 
 router.get('/', async(ctx, next)=>{
     let doc = await Videos.find().sort({'id':-1})
@@ -20,22 +20,46 @@ router.get('/', async(ctx, next)=>{
 
 router.post('/add', async (ctx, next)=>{
     let doc = await Videos.find().sort({'id':-1})
-    let count = doc.length
+    data.id = doc.length + 1
     let data = ctx.request.body
     data.date = new Date().Format("yyyy-MM-dd")
-    data.id = count+1
-    Videos.create(data)
-    Counts.create({
+    
+    let params = {
         "id": data.id,
         "type": "video",
         "category": ""
-    }).then(()=>{
-        // shell.cd('/www/wwwroot/dy.tcualhp.cn/dingyang-nuxt')
-        // if (shell.exec('npm run generate').code !== 0) {//执行npm run generate 命令
-        //     shell.echo('generate commit failed');
-        //     shell.exit(1);
-        // }
+    }
+
+    //写入count数据，为了Nuxt项目的generate
+    fs.readFile(path.join(nuxt.path, '/count.json'), function (err, data) {
+        if (err) {
+            console.log(err)
+            ctx.body = {
+                status: 100,
+                msg: err
+            }
+        }
+        var jsonData = data.toString()
+        jsonData = JSON.parse(jsonData)
+        jsonData.push(params)
+        var str = JSON.stringify(jsonData)
+        fs.writeFile(path.join(nuxt.path, '/count.json'), str, function (err) {
+            if (err) {
+                console.log(err)
+                ctx.body = {
+                    status: 100,
+                    msg: err
+                }
+            }
+        })
     })
+
+    Videos.create(data)
+    // shell.cd('/www/wwwroot/dy.tcualhp.cn/dingyang-nuxt')
+    // if (shell.exec('npm run generate').code !== 0) {//执行npm run generate 命令
+    //     shell.echo('generate commit failed');
+    //     shell.exit(1);
+    // }
     ctx.body = {
         status: '200',
         msg: 'add successfully'
