@@ -4,7 +4,7 @@ const Counts = require('../../models/counts')
 const fs = require('fs')
 const path = require('path')
 const nuxt = require('../../config/nuxt')
-// const shell = require('shelljs')
+const shell = require('child_process')
 
 
 router.prefix('/api/dingyang/article')
@@ -68,11 +68,11 @@ router.post('/add', async (ctx, next) => {
     
     Articles.create(data)
     console.log('add json successfully')
-    // shell.cd(nuxt.path)
-    // if (shell.exec('npm run generate').code !== 0) {//执行npm run generate 命令
-    //     shell.echo('generate commit failed');
-    //     shell.exit(1);
-    // }
+
+    shell.exec('npm run generate', {cwd: nuxt.path}, function(err){
+        console.log(err)
+     })
+
     ctx.body = {
         status: '200',
         msg: 'add successfully'

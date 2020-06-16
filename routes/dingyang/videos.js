@@ -1,7 +1,7 @@
 const router = require('koa-router')()
 const Videos = require('../../models/videos')
 const Counts = require('../../models/counts')
-// const shell = require('shelljs')
+const shell = require('child_process')
 
 
 router.prefix('/api/dingyang/video')
@@ -55,11 +55,11 @@ router.post('/add', async (ctx, next)=>{
     })
 
     Videos.create(data)
-    // shell.cd('/www/wwwroot/dy.tcualhp.cn/dingyang-nuxt')
-    // if (shell.exec('npm run generate').code !== 0) {//执行npm run generate 命令
-    //     shell.echo('generate commit failed');
-    //     shell.exit(1);
-    // }
+    
+    shell.exec('npm run generate', {cwd: nuxt.path}, function(err){
+        console.log(err)
+     })
+    
     ctx.body = {
         status: '200',
         msg: 'add successfully'

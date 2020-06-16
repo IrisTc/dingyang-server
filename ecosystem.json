@@ -1,0 +1,28 @@
+{
+    "apps": [{
+        "name": "server-koa",
+        "script": "./bin/www",
+        "env": {
+            "COMMON_VARIABLE": "true"
+        },
+        "env_production":{
+            "NODE_ENV": "production"
+        }
+    }],
+    "deploy": {
+        "production":{
+            "user": "root",
+            "host": ["39.105.94.140"],
+            "port": "22",
+            "ref": "origin/master",
+            "repo": "git@github.com:IrisTc/dy-server.git",
+            "path": "/www/wwwroot/admin.dy.tcualhp.cn/server-koa",
+            "ssh_options": "StrictHostKeyChecking=no",
+            "post-deploy": "cnpm install",
+            "pre-deploy-local": "echo 'Deploy Done!'",
+            "env": {
+                "NODE_ENV": "production"
+            }
+        }
+    }
+}
